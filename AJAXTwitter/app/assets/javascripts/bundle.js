@@ -93,23 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-class FollowToggle {
-  constructor(el){
-    this.$el = $el;
-    this.userId = $el.data("user-id");
-    this.followState = $el.data("initial-follow-state")
-  }
-
-  // render = function(followState) {
-  //   if(followState === "follow"){
-  //
-  //   }
-  // }
-}
-
-
-module.exports = FollowToggle;
-
+throw new Error("Module parse failed: Unexpected token (10:9)\nYou may need an appropriate loader to handle this file type.\n|   }\n| \n>   render = function() {\n|     if(this.followState === \"follow\"){\n|       $el.html(\"Unfollow!\");");
 
 /***/ }),
 

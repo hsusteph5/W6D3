@@ -3,20 +3,43 @@ class FollowToggle {
     this.$el = $el;
     this.userId = $el.data("user-id");
     this.followState = $el.data("initial-follow-state");
-    this.render(this.followState);
+    this.render();
+    this.$el.on("click", this.handleClick.bind(this));
   }
 
-  render = function(followState) {
-    if(followState === "follow"){
-      return "Unfollow!");
+  render = function() {
+    if(this.followState === "follow"){
+      $el.html("Unfollow!");
     } else {
-      return "Follow!";
+      $el.html("Follow!");
     }
   }
 
   handleClick = function(event){
-    event.preventDefault()
-  }
+    event.preventDefault();
+    if(this.followState === "follow"){
+      this.followState = 'unfollow';
+      $.ajax({
+        method: "DELETE",
+        url: "/users/:id/follow",
+        dataType: "json",
+        success: function(){
+          alert("You have successly unfollowed!");
+        }
+      });
+      this.render();
+    } else {
+        this.followState = 'follow';
+        $.ajax({
+          method: "POST",
+          url: "/users/:id/follow",
+          dataType: "json",
+          success: function(){
+            alert("You have successly followed!");
+          }
+      });
+      this.render();
+    }
 }
 
 
