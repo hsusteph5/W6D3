@@ -1,3 +1,5 @@
+import * as apiUtil from './api_util.js'
+
 class FollowToggle {
   constructor(el){
     this.$el = $el;
@@ -7,7 +9,7 @@ class FollowToggle {
     this.$el.on("click", this.handleClick.bind(this));
   }
 
-  render = function() {
+  render() {
     if(this.followState === "follow"){
       $el.html("Unfollow!");
     } else {
@@ -15,31 +17,19 @@ class FollowToggle {
     }
   }
 
-  handleClick = function(event){
+  handleClick(event){
     event.preventDefault();
     if(this.followState === "follow"){
       this.followState = 'unfollow';
-      $.ajax({
-        method: "DELETE",
-        url: "/users/:id/follow",
-        dataType: "json",
-        success: function(){
-          alert("You have successly unfollowed!");
-        }
-      });
+      apiUtil.unfollowUser(this.userId);
       this.render();
     } else {
         this.followState = 'follow';
-        $.ajax({
-          method: "POST",
-          url: "/users/:id/follow",
-          dataType: "json",
-          success: function(){
-            alert("You have successly followed!");
-          }
-      });
+        apiUtil.followUser(this.userId);
       this.render();
     }
+  }
+
 }
 
 
